@@ -14,9 +14,10 @@ router.post('/register', [
     body('vehicles.color').isString().isLength({min:3}).withMessage('Color must be at least 3 characters long'),
     body('vehicles.plate').isString().isLength({min:6}).withMessage('Plate number must be at least 6 characters long'),
     body('vehicles.capacity').isInt({min:1}).withMessage('Capacity must be at least 1'),
-    body('vehicles.vehicleType').isIn(['car', 'motorcycle', 'auto rikshaw']).withMessage('Vehicle type must be either car, motorcycle, or auto rikshaw')
+    body('vehicles.vehicleType').isIn(['car', 'motorcycle', 'auto rickshaw'])
+        .withMessage('Vehicle type must be either car, motorcycle, or auto rickshaw')
 ],
-     captainController.registerCaptain
+captainController.registerCaptain
 )
 
 router.post('/login', [
