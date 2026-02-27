@@ -62,12 +62,8 @@ Send a JSON object with the following structure:
 ```
 {
   "errors": [
-    {
-      "msg": "Error message",
-      "param": "field_name",
-      "location": "body"
-    }
-    // ...more errors
+    { "msg": "First name must be at least 3 characters long", "param": "fullname.firstname", "location": "body" }
+    // additional errors…
   ]
 }
 ```
@@ -137,11 +133,7 @@ Send a JSON object with the following structure:
 ```
 {
   "errors": [
-    {
-      "msg": "Error message",
-      "param": "field_name",
-      "location": "body"
-    }
+    { "msg": "Error message", "param": "field_name", "location": "body" }
     // ...more errors
   ]
 }
@@ -281,32 +273,28 @@ No body required.
 
 ### POST /captains/register
 
-Description  
-Registers a new captain (driver) with vehicle details. Validates input, hashes the password, creates a captain record and returns a JWT token and captain data.
+**Description**  
+Registers a new captain (driver) with vehicle details.
 
-HTTP Method  
-POST
+**HTTP Method**  
+`POST`  
+**URL** `/captains/register`  
+**Authentication** Not required.
 
-URL  
-`/captains/register`
-
-Authentication  
-Not required.
-
-Request Body (JSON)
-```
+**Request Body (JSON)**  
+```json
 {
-  "fullname": {
-    "firstname": "string (min 3 chars, required)",
-    "lastname": "string (min 3 chars, required)"
+  "fullname": {                      // object: first and last name
+    "firstname": "string",           // min 3 chars, required
+    "lastname": "string"             // min 3 chars, required
   },
-  "email": "string (valid email, required)",
-  "password": "string (min 6 chars, required)",
+  "email": "string",                 // valid email, required
+  "password": "string",              // min 6 chars, required
   "vehicles": {
-    "color": "string (min 3 chars, required)",
-    "plate": "string (min 6 chars, required)",
-    "capacity": "integer (min 1, required)",
-    "vehicleType": "one of: 'car', 'motorcycle', 'auto rickshaw' (required)"
+    "color": "string",               // min 3 chars, required
+    "plate": "string",               // min 6 chars, required
+    "capacity": 0,                   // number ≥ 1, required
+    "vehicleType": "string"          // one of: "car","motorcycle","auto rickshaw", required
   }
 }
 ```
@@ -344,13 +332,18 @@ Success Response
 - Body:
 ```
 {
-  "token": "<jwt_token>",
+  "token": "<jwt_token>",            // JWT used for future auth
   "captain": {
     "_id": "<captain_id>",
     "fullname": { "firstname": "Alice", "lastname": "Smith" },
     "email": "alice.smith@example.com",
-    "vehicles": { "color": "Blue", "plate": "ABC1234", "capacity": 4, "vehicleType": "car" },
-    // other captain fields (status, role, etc.)
+    "vehicles": {
+      "color": "Blue",
+      "plate": "ABC1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+    // other fields: status, role, etc.
   }
 }
 ```
