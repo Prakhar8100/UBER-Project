@@ -11,7 +11,7 @@ const UserSignup = () => {
   const submitHandler = (e) => {
     e.preventDefault()
       setUserData({
-        username:{
+        fullName:{
           firstName:firstName,
           lastName:lastName
         },
@@ -83,7 +83,7 @@ const UserSignup = () => {
                 <p className='text-center'>Already have an account? <Link to="/login" className='text-blue-600'>Login Here</Link></p>
             </div>
             <div>
-                <p className='text-[6px] leading-tight'>By Proceeding, you consent to get calls, Whatsapp or SMS messages, including by automated means, from Uber and its affiliates to the number provided.</p>
+                <p className='text-[10px] leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy Policy</span> and <span className='underline'>Terms of Service apply</span>.</p>
             </div>
         </div>
   )
